@@ -2,7 +2,7 @@ ANALYZE zip_codes;
 
 -- single-column condition
 EXPLAIN (ANALYZE, TIMING off)
-SELECT * FROM zip_codes WHERE place_name = 'Berlin';
+SELECT * FROM zip_codes WHERE place_name = 'Lisboa';
 
 -- number of tuples / pages in a table
 SELECT reltuples, relpages FROM pg_class WHERE relname = 'zip_codes';
@@ -12,18 +12,18 @@ SELECT * FROM pg_stats WHERE tablename = 'zip_codes' AND attname = 'place_name';
 
 -- multi-column condition
 EXPLAIN (ANALYZE, TIMING off)
-SELECT * FROM zip_codes WHERE place_name = 'Berlin'
-                          AND state_name = 'Berlin';
+SELECT * FROM zip_codes WHERE place_name = 'Lisboa'
+                          AND state_name = 'Lisboa';
 
 -- multi-column condition, inequality
 EXPLAIN (ANALYZE, TIMING off)
-SELECT * FROM zip_codes WHERE place_name = 'Berlin'
-                          AND state_name != 'Berlin';
+SELECT * FROM zip_codes WHERE place_name = 'Lisboa'
+                          AND state_name != 'Lisboa';
 
 -- multi-column condition, incompatible conditions
 EXPLAIN (ANALYZE, TIMING off)
-SELECT * FROM zip_codes WHERE place_name = 'Berlin'
-                          AND state_name = 'Bayern';
+SELECT * FROM zip_codes WHERE place_name = 'Lisboa'
+                          AND state_name = 'Porto';
 
 -- functional dependencies
 CREATE STATISTICS s (dependencies)
@@ -36,9 +36,6 @@ SELECT stxdependencies FROM pg_statistic_ext WHERE stxname = ‘s’;
 -- ndistinct
 EXPLAIN (ANALYZE, TIMING off)
 SELECT 1 FROM zip_codes GROUP BY community_name;
-
-EXPLAIN (ANALYZE, TIMING off)
-SELECT 1 FROM zip_codes GROUP BY county_name;
 
 EXPLAIN (ANALYZE, TIMING off)
 SELECT 1 FROM zip_codes GROUP BY state_name;
