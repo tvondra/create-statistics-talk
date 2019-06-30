@@ -1,8 +1,8 @@
 CREATE TABLE zip_codes (
-  postal_code       VARCHAR(20),
+  postal_code       INT,
   place_name        VARCHAR(180),
-  state_name        VARCHAR(100),
-  province_name     VARCHAR(100),
+  county_name       VARCHAR(100),
+  county_code       INT,
   latitude          REAL,
   longitude         REAL
 );
